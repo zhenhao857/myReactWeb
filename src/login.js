@@ -4,19 +4,27 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import 'antd/dist/antd.css';
+import './login.css'
 
 const FormItem = Form.Item;
 
 class Login extends React.Component{
-  // constructor(props){
-  //   super(props);
-  //   // this.state = {
-  //   //   redirectToReferrer : false
-  //   // }
-  // }
+  constructor(props){
+    super(props);
+    // this.state = {
+    //   redirectToReferrer : false
+    // }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.history.push("/home");
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        sessionStorage.setItem('onLogin',true);
+        this.props.history.push("/home");
+      }
+    });
+    // this.props.history.push("/home");
   };
   render(){
     const { getFieldDecorator } = this.props.form;
